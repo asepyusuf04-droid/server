@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Aplikasi Ujian Siswa</title>
+    <!-- Link Font Awesome untuk ikon (opsional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Container Utama */
+        .card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border-top: 8px solid #004a99; /* Warna Biru Resmi */
+        }
+
+        /* Label / Judul */
+        .label-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #004a99;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sub-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* Ikon Aplikasi */
+        .icon-box {
+            font-size: 4rem;
+            color: #004a99;
+            margin-bottom: 20px;
+        }
+
+        /* Tombol Download */
+        .btn-download {
+            display: inline-block;
+            background-color: #004a99;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 74, 153, 0.3);
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .btn-download:hover {
+            background-color: #003366;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 74, 153, 0.4);
+        }
+
+        .btn-download i {
+            margin-right: 10px;
+        }
+
+        /* Footer Info */
+        .footer-info {
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="icon-box">
+            <i class="fas fa-file-download"></i>
+        </div>
+        
+        <h1 class="label-text">Aplikasi Ujian Siswa</h1>
+        <p class="sub-text">Silakan unduh aplikasi  untuk mengikuti ujian sekolah melalui perangkat Android Anda.</p>
+        
+        <!-- Link Download - dibuka di browser eksternal -->
+        <a href="https://ujian-sekolah.pages.dev/Ujian_Siswa.apk"
+           class="btn-download"
+           onclick="window.open(this.href, '_system'); return false;">
+            <i class="fas fa-download"></i> Download APK
+        </a>
+
+        <div class="footer-info">
+            Ujian &bull; Digital
+        </div>
+    </div>
+
+</body>
+</html>

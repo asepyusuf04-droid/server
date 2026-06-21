@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Portal Ujian Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0f4f9;
+            --card: #ffffff;
+            --border: #dde3ed;
+            --border-focus: #4a7fcb;
+            --accent: #2563eb;
+            --accent-light: #dbeafe;
+            --accent-dark: #1d4ed8;
+            --text: #1e293b;
+            --muted: #64748b;
+            --danger: #dc2626;
+            --success: #16a34a;
+            --input-bg: #f8fafc;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            background-image:
+                radial-gradient(circle at 20% 20%, #dbeafe 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, #ede9fe 0%, transparent 50%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 32px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 24px rgba(37,99,235,0.08), 0 1px 4px rgba(0,0,0,0.06);
+            animation: fadeUp 0.45s cubic-bezier(.22,.68,0,1.2) both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .header { text-align: center; margin-bottom: 28px; }
+
+        .logo-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px; height: 52px;
+            background: var(--accent-light);
+            border-radius: 14px;
+            margin-bottom: 14px;
+        }
+
+        .logo-wrap svg {
+            width: 26px; height: 26px;
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .app-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .subtitle { font-size: 13px; color: var(--muted); font-weight: 400; }
+
+        .field { margin-bottom: 18px; }
+
+        label {
+            display: block;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 7px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 13px 16px;
+            background: var(--input-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            -webkit-appearance: none;
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        select option { background: #fff; color: #1e293b; }
+
+        input {
+            text-align: center;
+            letter-spacing: 4px;
+            font-size: 19px;
+        }
+
+        input::placeholder {
+            letter-spacing: 1px;
+            font-size: 13px;
+            color: #b0bec5;
+            font-weight: 400;
+        }
+
+        select:focus, input:focus {
+            border-color: var(--border-focus);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(74,127,203,0.15);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+            margin-top: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover  { background: var(--accent-dark); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
+        .btn:active { transform: scale(0.98); }
+        .btn:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.2) 50%, transparent 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1s infinite;
+        }
+
+        @keyframes shimmer {
+            from { background-position: -200% 0; }
+            to   { background-position:  200% 0; }
+        }
+
+        #msg {
+            margin-top: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            min-height: 20px;
+            color: var(--danger);
+        }
+
+        #msg.info { color: var(--success); }
+
+        .divider { height: 1px; background: var(--border); margin: 24px 0 16px; }
+
+        .footer { text-align: center; font-size: 11.5px; color: #b0bec5; letter-spacing: 0.3px; }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-light);
+            color: var(--accent);
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="logo-wrap">
+                <svg viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </svg>
+            </div>
+            <div class="badge">Sistem Ujian</div>
+            <div class="app-title">PORTAL UJIAN</div>
+            <p class="subtitle">Pilih kelas dan masukkan token untuk memulai</p>
+        </div>
+
+        <div class="field">
+            <label>Pilih Kelas</label>
+            <select id="kelas">
+                <option value="K1">Kelas 1</option>
+                <option value="K2">Kelas 2</option>
+                <option value="K3">Kelas 3</option>
+                <option value="K4" selected>Kelas 4</option>
+                <option value="K5">Kelas 5</option>
+                <option value="K6">Kelas 6</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Token Ujian</label>
+            <input
+                type="text"
+                id="token"
+                placeholder="Contoh: IPA-MID"
+                autocomplete="off"
+                autocorrect="off"
+                spellcheck="false"
+                oninput="this.value = this.value.toUpperCase()"
+            >
+        </div>
+
+        <button class="btn" id="btn-muat" onclick="muatUjian()">MULAI UJIAN</button>
+        <div id="msg"></div>
+
+        <div class="divider"></div>
+        <p class="footer">Portal Ujian Digital &copy; 2025</p>
+    </div>
+
+    <script>
+        function muatUjian() {
+            const kelas = document.getElementById('kelas').value;
+            const tk    = document.getElementById('token').value.trim().toUpperCase();
+            const msg   = document.getElementById('msg');
+            const btn   = document.getElementById('btn-muat');
+
+            msg.className = '';
+            msg.innerText = '';
+
+            if (!tk) {
+                msg.innerText = '⚠️ Silakan isi token ujian terlebih dahulu!';
+                shake(document.getElementById('token'));
+                return;
+            }
+
+            const tokenPattern = /^[A-Z0-9]+(-[A-Z0-9]+)*$/;
+            if (!tokenPattern.test(tk)) {
+                msg.innerText = '⚠️ Format token tidak valid. Contoh: IPA-MID';
+                shake(document.getElementById('token'));
+                return;
+            }
+
+            msg.className = 'info';
+            msg.innerText = '⏳ Sedang memuat soal...';
+            btn.disabled = true;
+            btn.classList.add('loading');
+            btn.innerText = 'MEMUAT...';
+
+            const fileName = `${kelas}_${tk}.html`;
+            const url = `https://ujian-sekolah.pages.dev/${fileName}`;
+
+            /*
+             * FIX: Gunakan Android bridge (window.Android.muatHalaman)
+             * agar navigasi dari file:// ke https:// bisa ditangkap
+             * dengan benar di semua versi Android WebView.
+             *
+             * window.location.href TIDAK reliable untuk kasus ini
+             * karena perilakunya tidak konsisten antar versi Android.
+             */
+            if (window.Android && typeof window.Android.muatHalaman === 'function') {
+                window.Android.muatHalaman(url);
+            } else {
+                // Fallback: buka di browser biasa (untuk testing di PC)
+                window.location.href = url;
+            }
+        }
+
+        function shake(el) {
+            const steps = [8, -8, 6, -6, 4, -4, 0];
+            let i = 0;
+            const iv = setInterval(() => {
+                el.style.transform = `translateX(${steps[i]}px)`;
+                i++;
+                if (i >= steps.length) { clearInterval(iv); el.style.transform = ''; }
+            }, 50);
+        }
+
+        document.getElementById('token').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') muatUjian();
+        });
+    </script>
+</body>
+</html>
